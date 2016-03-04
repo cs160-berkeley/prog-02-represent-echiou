@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.echiou.represent.DetailedViewActivity">
+
+    <ImageView
+        android:id="@+id/rep_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/rep_pic_desc"
+        android:layout_gravity="center"/>
+
+    <TextView android:id="@+id/rep_name"
+        android:text="@string/name_filler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/rep_dist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dist_filler"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/rep_party"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/party_filler"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/rep_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/email_filler"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/rep_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/phone_filler"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/rep_term"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/term_filler"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/committee_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/committee_head"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <ListView android:id="@+id/committeelistview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </ListView>
+
+    <TextView
+        android:id="@+id/bills_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bills_head"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <ListView android:id="@+id/billlistview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </ListView>
+</LinearLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Represent</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="cur_location_button">Use Current Location</string>
+    <string name="zip_hint">94704</string>
+    <string name="zip_button">Use Zip Code</string>
+    <string name="title_activity_congressional_view">CongressionalViewActivity</string>
+    <string name="loc_filler">Location Here</string>
+    <string name="instructions">Click congressmen for more info.</string>
+    <string name="rep_header">Representatives</string>
+    <string name="sen_header">Senators</string>
+    <string name="rep_pic_desc">Picture of representative.</string>
+    <string name="name_filler">Representative name.</string>
+    <string name="party_filler">Representative party.</string>
+    <string name="email_filler">Representative email.</string>
+    <string name="phone_filler">Representative phone.</string>
+    <string name="tweet_filler">Representative tweet.</string>
+    <string name="handle_filler">Representative handle.</string>
+    <string name="dist_filler">Representative district.</string>
+    <string name="term_filler">Representative term end.</string>
+    <string name="title_activity_detailed_view">DetailedView</string>
+
+    <string name="committee_head">Committees</string>
+
+    <string name="bills_head">Recently Sponsored Bills</string>
+
+</resources>
