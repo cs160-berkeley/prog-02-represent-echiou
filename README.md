@@ -1,6 +1,6 @@
 # PROG 02: Represent!
 
-Briefly describe your app here.
+PROG 02-B for CS160 User Interface Design.
 
 ## Authors
 
