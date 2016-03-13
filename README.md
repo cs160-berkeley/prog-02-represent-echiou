@@ -8,7 +8,7 @@ Ethan Chiou ([ethanchiou@berkeley.edu](mailto:ethanchiou@berkeley.edu))
 
 ## Demo Video
 
-https://youtu.be/vUWAqmPvu8M
+https://youtu.be/6Bup7XG1WBE
 
 ## Acknowledgments
 
