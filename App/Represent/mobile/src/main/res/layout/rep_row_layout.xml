@@ -22,32 +22,60 @@
             android:id="@+id/rep_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name_filler"/>
+            android:text="@string/name_filler"
+            android:textSize="16sp"
+            android:layout_marginBottom="5sp"/>
         <TextView
             android:id="@+id/rep_party"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/party_filler"/>
+            android:text="@string/party_filler"
+            android:textSize="12sp"
+            android:layout_marginBottom="5sp"/>
         <TextView
             android:id="@+id/rep_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/email_filler"/>
+            android:text="@string/email_filler"
+            android:textSize="12sp"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="5sp"/>
         <TextView
             android:id="@+id/rep_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone_filler"/>
+            android:text="@string/phone_filler"
+            android:textSize="12sp"
+            android:layout_marginBottom="5sp"/>
+        <TextView
+            android:id="@+id/rep_site"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/site_filler"
+            android:textSize="12sp"
+            android:layout_marginBottom="5sp"
+            android:textColor="@color/primary"/>
         <TextView
             android:id="@+id/rep_tweet"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tweet_filler"/>
+            android:text="@string/tweet_filler"
+            android:textSize="12sp"
+            android:background="#ffffff"
+            android:padding="5sp"/>
         <TextView
             android:id="@+id/rep_handle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/handle_filler"/>
+            android:text="@string/handle_filler"
+            android:textSize="12sp"
+            android:textColor="@color/primary"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:background="#ffffff"
+            android:paddingLeft="5sp"
+            android:paddingRight="5sp"
+            android:paddingBottom="5sp"/>
     </LinearLayout>
 
 </RelativeLayout>

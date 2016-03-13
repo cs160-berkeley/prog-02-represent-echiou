@@ -20,6 +20,12 @@
         <TextView android:text="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="30sp"/>
+
+        <TextView android:text="@string/app_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"/>
 
         <Button

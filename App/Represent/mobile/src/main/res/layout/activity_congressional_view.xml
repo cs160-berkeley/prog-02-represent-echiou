@@ -13,7 +13,8 @@
         android:text="@string/loc_filler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="30sp" />
 
     <TextView android:id="@+id/inst"
         android:text="@string/instructions"
@@ -25,24 +26,30 @@
         android:text="@string/rep_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <ListView android:id="@+id/replistview"
         android:layout_width="wrap_content"
         android:layout_weight="1"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp">
     </ListView>
 
     <TextView android:id="@+id/sen_header"
         android:text="@string/sen_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <ListView android:id="@+id/senlistview"
         android:layout_width="wrap_content"
         android:layout_weight="1"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp">
     </ListView>
 
 </LinearLayout>

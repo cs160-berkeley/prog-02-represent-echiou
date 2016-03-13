@@ -39,7 +39,7 @@ public class RepGridPagerAdapter extends FragmentGridPagerAdapter {
         }
         else {
             if (ovr != null) {
-                fragment = RepCardFragment.create(ovr[0] + "% v. " + ovr[1] + "%", "2012 pres. election, " + ovr[2]);
+                fragment = RepCardFragment.create(ovr[0] + "% v. " + ovr[1] + "%", "Obama v. Romney, 2012 election," + ovr[2]);
             }
             else {
                 fragment = null;

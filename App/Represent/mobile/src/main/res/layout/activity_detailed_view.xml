@@ -18,37 +18,44 @@
         android:text="@string/name_filler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="20sp"/>
     <TextView
         android:id="@+id/rep_dist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/dist_filler"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="12sp"/>
     <TextView
         android:id="@+id/rep_party"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/party_filler"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="12sp"/>
     <TextView
         android:id="@+id/rep_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/email_filler"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/primary"/>
     <TextView
         android:id="@+id/rep_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/phone_filler"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="12sp"/>
     <TextView
         android:id="@+id/rep_term"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/term_filler"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/committee_head"
@@ -57,11 +64,14 @@
         android:text="@string/committee_head"
         android:gravity="center"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:textSize="16sp"/>
 
     <ListView android:id="@+id/committeelistview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:textSize="12sp">
     </ListView>
 
     <TextView
@@ -70,11 +80,14 @@
         android:layout_height="wrap_content"
         android:text="@string/bills_head"
         android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="16sp"/>
 
     <ListView android:id="@+id/billlistview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:textSize="12sp">
     </ListView>
 </LinearLayout>

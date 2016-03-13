@@ -3,12 +3,35 @@ package com.echiou.represent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.AppSession;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterApiClient;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.models.Tweet;
+import com.twitter.sdk.android.core.services.StatusesService;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 
 public class CongressionalViewActivity extends Activity {
@@ -21,7 +44,14 @@ public class CongressionalViewActivity extends Activity {
     public final static String TERM_MESSAGE = "com.echiou.represent.TERM_MESSAGE";
     public final static String COMMITTEE_MESSAGE = "com.echiou.represent.COMMITTEE_MESSAGE";
     public final static String BILLS_MESSAGE = "com.echiou.represent.BILLS_MESSAGE";
+    public final static String HANDLES_MESSAGE = "com.echiou.represent.HANDLES_MESSAGE";
+    public final static String TWITTER_KEY = "u7QF6HENk6ME6YaZDN5BnLlRl";
+    public final static String TWITTER_SECRET = "6s4LlsZLgQd7XicJvemjAyQDvoQmx6YCArMrsfF0HH25YMNlh8";
 
+    private InputStream input;
+
+    TwitterApiClient twitterApiClient;
+    StatusesService statusesService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,141 +63,156 @@ public class CongressionalViewActivity extends Activity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         TextView location = (TextView) findViewById(R.id.header);
-        location.setText(message);
+        String county = intent.getStringExtra("LOCATION");
+        String state = intent.getStringExtra("STATE");
+        location.setText(county);
 
-        String[] repNames;
-        String[] repParties;
-        String[] repEmails;
-        String[] repPhoneNumbers;
-        String[] repTweets;
-        String[] repHandles;
-        String[] repDist;
-        int[] repPictures;
+        String[] repNames = new String[2];
+        String[] repParties = new String[2];
+        String[] repEmails = new String[2];
+        String[] repPhoneNumbers = new String[2];
+        String[] repTweets = new String[2];
+        String[] repHandles = new String[2];
+        String[] repDist = new String[2];
+        String[] repBio = new String[2];
+        String[] repSite = new String[2];
 
-        String[] senNames;
-        String[] senParties;
-        String[] senEmails;
-        String[] senPhoneNumbers;
-        String[] senTweets;
-        String[] senHandles;
-        String[] senDist;
-        int[] senPictures;
-        // TODO: Parse for districts (regex?), get senators.
-        // For now, just checking CA17 or zip code.
-        if(message.contentEquals("CA17")){
-            // TODO: Use API to find relevant representatives, compile into ListView.
-            repNames = new String[] {"Michael M. Honda"};
-            repParties = new String[] {"Democrat"};
-            repEmails = new String[] {"honda@honda.house.gov"};
-            repPhoneNumbers = new String[] {"(202)222-2631"};
-            repTweets = new String[] {"(Honda's first tweet)"};
-            repHandles = new String[] {"RepMikeHonda"};
-            repDist = new String[] {"CA17"};
-            repPictures = new int[] {R.drawable.rep1};
+        String[] senNames = new String[2];
+        String[] senParties = new String[2];
+        String[] senEmails = new String[2];
+        String[] senPhoneNumbers = new String[2];
+        String[] senTweets = new String[2];
+        String[] senHandles = new String[2];
+        String[] senDist = new String[2];
+        String[] senBio = new String[2];
+        String[] senSite = new String[2];
 
-            senNames = new String[] {"Dianne Feinstein", "Barbara Boxer"};
-            senParties = new String[] {"Democrat", "Democrat"};
-            senEmails = new String[] {"feinstein@feinstein.senate.gov", "boxer@boxer.senate.gov"};
-            senPhoneNumbers = new String[] {"(202)224-3841", "(202)224-3553"};
-            senTweets = new String[] {"(Feinstein's first tweet)", "(Boxer's first tweet)"};
-            senHandles = new String[] {"SenFeinstein", "SenatorBoxer"};
-            senDist = new String[] {"CA", "CA"};
-            senPictures = new int[] {R.drawable.rep3, R.drawable.rep4};
-        } else if (message.contentEquals("AK01")){
-            // TODO: Same
-            repNames = new String[] {"Don Young"};
-            repParties = new String[] {"Republican"};
-            repEmails = new String[] {"donyoung@donyoung.house.gov"};
-            repPhoneNumbers = new String[] {"(907)271-5978"};
-            repTweets = new String[] {"(Young's first tweet)"};
-            repHandles = new String[] {"RepDonYoung"};
-            repDist = new String[] {"AK01"};
-            repPictures = new int[] {R.drawable.rep1};
 
-            senNames = new String[] {"Dan Sullivan", "Lisa Murkowskir"};
-            senParties = new String[] {"Republican", "Republican"};
-            senEmails = new String[] {"sullivan@sullivan.senate.gov", "murkowskir@murkowskir.senate.gov"};
-            senPhoneNumbers = new String[] {"(202)224-3004", "(202)224-6665"};
-            senTweets = new String[] {"(Sullivan's first tweet)", "(Murkowskir's first tweet)"};
-            senHandles = new String[] {"SenDanSullivan", "lisamurkowskir"};
-            senDist = new String[] {"AK", "AK"};
-            senPictures = new int[] {R.drawable.rep3, R.drawable.rep4};
-        } else if (message.contentEquals("NV03")){
-            // TODO: Same
-            repNames = new String[] {"Joe Heck"};
-            repParties = new String[] {"Republican"};
-            repEmails = new String[] {"joeheck@joeheck.house.gov"};
-            repPhoneNumbers = new String[] {"(202)371-5237"};
-            repTweets = new String[] {"(Heck's first tweet)"};
-            repHandles = new String[] {"RepJoeHeck"};
-            repDist = new String[] {"NV03"};
-            repPictures = new int[] {R.drawable.rep1};
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
-            senNames = new String[] {"Harry Reid", "Dean Heller"};
-            senParties = new String[] {"Democrat", "Republican"};
-            senEmails = new String[] {"reid@reid.senate.gov", "heller@heller.senate.gov"};
-            senPhoneNumbers = new String[] {"(202)234-3010", "(202)264-1625"};
-            senTweets = new String[] {"(Reid's first tweet)", "(Heller's first tweet)"};
-            senHandles = new String[] {"SenReid", "SenDeanHeller"};
-            senDist = new String[] {"NV", "NV"};
-            senPictures = new int[] {R.drawable.rep3, R.drawable.rep4};
-        } else if (message.contentEquals("NY10")){
-            // TODO: Same
-            repNames = new String[] {"Jerrold Nadler"};
-            repParties = new String[] {"Democrat"};
-            repEmails = new String[] {"nadler@nadler.house.gov"};
-            repPhoneNumbers = new String[] {"(202)221-5978"};
-            repTweets = new String[] {"(Nadler's first tweet)"};
-            repHandles = new String[] {"RepJerroldNadler"};
-            repDist = new String[] {"NY10"};
-            repPictures = new int[] {R.drawable.rep1};
+            StrictMode.setThreadPolicy(policy);
 
-            senNames = new String[] {"Kirsten Gillibrand", "Chuck Schumer"};
-            senParties = new String[] {"Democrat", "Democrat"};
-            senEmails = new String[] {"gillibrand@gillibrand.senate.gov", "schumer@schumer.senate.gov"};
-            senPhoneNumbers = new String[] {"(202)224-3034", "(202)264-6625"};
-            senTweets = new String[] {"(Gillibrand's first tweet)", "(Schumer's first tweet)"};
-            senHandles = new String[] {"SenKirstenGillibrand", "SenSchumer"};
-            senDist = new String[] {"NY", "NY"};
-            senPictures = new int[] {R.drawable.rep3, R.drawable.rep4};
-        } else {
-            // TODO: Same
-            repNames = new String[] {"Michael M. Honda", "Anna G. Eshoo"};
-            repParties = new String[] {"Democrat", "Democrat"};
-            repEmails = new String[] {"honda@honda.house.gov", "eshoo@eshoo.house.gov"};
-            repPhoneNumbers = new String[] {"(202)222-2631", "(202)225-8104"};
-            repTweets = new String[] {"(Honda's first tweet)", "(Eshoo's first tweet)"};
-            repHandles = new String[] {"RepMikeHonda", "RepAnnaEshoo"};
-            repDist = new String[] {"CA17", "CA18"};
-            repPictures = new int[] {R.drawable.rep1, R.drawable.rep2};
+            String url = "http://congress.api.sunlightfoundation.com/legislators/locate?" + message;
+            input = new URL(url).openStream();
 
-            senNames = new String[] {"Dianne Feinstein", "Barbara Boxer"};
-            senParties = new String[] {"Democrat", "Democrat"};
-            senEmails = new String[] {"feinstein@feinstein.senate.gov", "boxer@boxer.senate.gov"};
-            senPhoneNumbers = new String[] {"(202)224-3841", "(202)224-3553"};
-            senTweets = new String[] {"(Feinstein's first tweet)", "(Boxer's first tweet)"};
-            senHandles = new String[] {"SenFeinstein", "SenatorBoxer"};
-            senDist = new String[] {"CA", "CA"};
-            senPictures = new int[] {R.drawable.rep3, R.drawable.rep4};
+            BufferedReader streamReader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
+            StringBuilder responseStrBuilder = new StringBuilder();
+
+            String inputStr;
+            while ((inputStr = streamReader.readLine()) != null) {
+                responseStrBuilder.append(inputStr);
+            }
+            JSONObject input_json = new JSONObject(responseStrBuilder.toString());
+            JSONArray jsonArray = input_json.optJSONArray("results");
+
+            if (jsonArray.length() == 3) {
+                repNames = new String[1];
+                repParties = new String[1];
+                repEmails = new String[1];
+                repPhoneNumbers = new String[1];
+                repTweets = new String[1];
+                repHandles = new String[1];
+                repDist = new String[1];
+                repBio = new String[1];
+                repSite = new String[1];
+
+                for (int i=0;i<jsonArray.length();i++){
+                    if(i == 0) { // the only rep
+                        JSONObject rep = jsonArray.getJSONObject(i);
+                        repNames[i] = rep.get("first_name").toString() + " "
+                                + rep.get("last_name").toString();
+                        repParties[i] = "Political Party: " + rep.get("party").toString();
+                        repEmails[i] = rep.get("oc_email").toString();
+                        repPhoneNumbers[i] = rep.get("phone").toString();
+                        repTweets[i] ="(Rep's first tweet)"; // TODO: Fix to use tweet
+                        repHandles[i] = rep.get("twitter_id").toString();
+                        repDist[i] = rep.get("state").toString() + rep.get("district").toString();
+                        repBio[i] = rep.get("bioguide_id").toString();
+                        repSite[i] = rep.get("website").toString();
+                    }
+                    else { // senator
+                        JSONObject sen = jsonArray.getJSONObject(i);
+                        senNames[i - 1] = sen.get("first_name").toString() + " "
+                                + sen.get("last_name").toString();
+                        senParties[i - 1] = "Political Party: " + sen.get("party").toString();
+                        senEmails[i - 1] = sen.get("oc_email").toString();
+                        senPhoneNumbers[i - 1] = sen.get("phone").toString();
+                        senTweets[i - 1] ="(Sen's first tweet)"; // TODO: Fix to use tweet
+                        senHandles[i - 1] = sen.get("twitter_id").toString();
+                        senDist[i - 1] = sen.get("state").toString();
+                        senBio[i - 1] = sen.get("bioguide_id").toString();
+                        senSite[i - 1] = sen.get("website").toString();
+                    }
+                }
+            } else { // else it is length 4 (2 reps, 2 sens)
+                for (int i=0;i<jsonArray.length();i++){
+                    if(i <= 1) { // the only rep
+                        JSONObject rep = jsonArray.getJSONObject(i);
+                        repNames[i] = rep.get("first_name").toString() + " "
+                                + rep.get("last_name").toString();
+                        repParties[i] = "Political Party: " + rep.get("party").toString();
+                        repEmails[i] = rep.get("oc_email").toString();
+                        repPhoneNumbers[i] = rep.get("phone").toString();
+                        repTweets[i] ="(Rep's first tweet)"; // TODO: Fix to use tweet
+                        repHandles[i] = rep.get("twitter_id").toString();
+                        repDist[i] = rep.get("state").toString() + rep.get("district").toString();
+                        repBio[i] = rep.get("bioguide_id").toString();
+                        repSite[i] = rep.get("website").toString();
+                    }
+                    else { // senator
+                        JSONObject sen = jsonArray.getJSONObject(i);
+                        senNames[i - 2] = sen.get("first_name").toString() + " "
+                                + sen.get("last_name").toString();
+                        senParties[i - 2] = "Political Party: " + sen.get("party").toString();
+                        senEmails[i - 2] = sen.get("oc_email").toString();
+                        senPhoneNumbers[i - 2] = sen.get("phone").toString();
+                        senTweets[i - 2] ="(Sen's first tweet)"; // TODO: Fix to use tweet
+                        senHandles[i - 2] = sen.get("twitter_id").toString();
+                        senDist[i - 2] = sen.get("state").toString();
+                        senBio[i - 2] = sen.get("bioguide_id").toString();
+                        senSite[i - 2] = sen.get("website").toString();
+                    }
+                }
+            }
+        } catch(Exception e){
+            Log.e("Error in getting information", e.toString());
         }
 
         Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
         sendIntent.putExtra("ACTIVITY_TYPE", "/rep");
-        //TODO: Get actual Obama v. Romney , construct strings.
-        String[] OvR = {"70", "27", "CA District 17"};
-        if (message.contentEquals("AK01")){
-            OvR = new String[] {"41", "55", "At-large, Alaska"};
-        } else if (message.contentEquals("NV03")){
-            OvR = new String[] {"50", "49", "Nevada District 3"};
-        } else if (message.contentEquals("NY10")){
-            OvR = new String[] {"74", "25", "New York District 10"};
+
+        //OvR
+        String[] OvR = {"0", "0", county + ", " + state};
+        try {
+            InputStream stream = getAssets().open("election-county-2012.json");
+            int size = stream.available();
+            byte[] buffer = new byte[size];
+            stream.read(buffer);
+            stream.close();
+            String jsonString = new String(buffer, "UTF-8");
+
+            JSONArray jsonArray = new JSONArray(jsonString);
+            String truncate_county = county.substring(0, county.length() - 7);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if(jsonObject.getString("county-name").contentEquals(truncate_county)) {
+                    OvR[0] = jsonObject.getString("obama-percentage");
+                    OvR[1] = jsonObject.getString("romney-percentage");
+                }
+            }
+        } catch (Exception e) {
+            Log.e("Error reading election file", e.toString());
         }
+
+
         sendIntent.putExtra("NAME_AND_PARTY_MESSAGE", concat(repNames, concat(senNames, concat(repParties, concat(senParties, OvR)))));
         startService(sendIntent);
 
 
-        final RepArrayAdapter repAdapter = new RepArrayAdapter(this, repNames, repParties, repEmails, repPhoneNumbers, repTweets, repHandles, repPictures);
-        final RepArrayAdapter senAdapter = new RepArrayAdapter(this, senNames, senParties, senEmails, senPhoneNumbers, senTweets, senHandles, senPictures);
+        final RepArrayAdapter repAdapter = new RepArrayAdapter(this, repNames, repParties, repEmails, repPhoneNumbers, repTweets, repHandles, repBio, repSite);
+        final RepArrayAdapter senAdapter = new RepArrayAdapter(this, senNames, senParties, senEmails, senPhoneNumbers, senTweets, senHandles, senBio, senSite);
         repList.setAdapter(repAdapter);
         senList.setAdapter(senAdapter);
     }
